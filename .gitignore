@@ -1,0 +1,6 @@
+node_modules
+.next
+build
+.firebase
+.env
+app/.next
