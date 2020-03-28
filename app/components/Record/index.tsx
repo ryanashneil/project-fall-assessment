@@ -18,7 +18,7 @@ const FallRiskToken = (props: IToken) => {
 
 export default (props: IProps) => {
     const goToFP2 = async () => {
-        await Router.push(`/fall-prevention-assessment?id=${props.senior.key}`);
+        await Router.push(`/fall-prevention-assessment.html?id=${props.senior.key}`);
     };
 
     let Action = (
