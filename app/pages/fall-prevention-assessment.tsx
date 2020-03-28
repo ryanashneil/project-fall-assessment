@@ -1,12 +1,12 @@
-import Segment from "src/components/Segment";
-import { color } from 'src/styles/tokens';
+import Segment from "components/Segment";
+import { color } from 'styles/tokens';
 import Router, { useRouter } from 'next/router';
 import { Button, Flex, Text, Box, Heading, Link, Icon, AvatarGroup, Avatar } from "@chakra-ui/core";
-import { IFormSchema, useForm, Field } from "src/hooks/useForm";
-import { updateSeniorFP2, getSenior } from 'src/db/api';
+import { IFormSchema, useForm, Field } from "hooks/useForm";
+import { updateSeniorFP2, getSenior } from 'db/api';
 import { useState, useEffect } from 'react';
-import { ISenior } from 'src/db/interface';
-import Timer from "src/composite/Modal/Timer";
+import { ISenior } from 'db/interface';
+import Timer from "composite/Modal/Timer";
 
 const BP_LYING = 'bpLying';
 const BP_SITTING = 'bpSitting';

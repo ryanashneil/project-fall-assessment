@@ -1,13 +1,13 @@
-import NewAssessment from "src/composite/Modal/NewAssessment"
-import Segment from "src/components/Segment";
-import { color } from 'src/styles/tokens';
+import NewAssessment from "composite/Modal/NewAssessment"
+import Segment from "components/Segment";
+import { color } from 'styles/tokens';
 import { Flex, Text, Input, InputGroup, InputLeftElement, Icon } from "@chakra-ui/core";
-import Record from "src/components/Record";
+import Record from "components/Record";
 import { useState, useEffect } from "react";
-import Loader from "src/components/Loader";
-import { ISenior } from 'src/db/interface';
-import { getAllSeniors } from 'src/db/api';
-import EmptyState from "src/components/EmptyState";
+import Loader from "components/Loader";
+import { ISenior } from 'db/interface';
+import { getAllSeniors } from 'db/api';
+import EmptyState from "components/EmptyState";
 import moment from 'moment';
 
 

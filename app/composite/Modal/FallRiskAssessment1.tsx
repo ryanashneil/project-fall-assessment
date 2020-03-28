@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Box, useDisclosure, Heading, List, ListItem, Text } from '@chakra-ui/core';
-import { useForm, Field, IFormSchema } from 'src/hooks/useForm';
-import { color } from 'src/styles/tokens';
+import { useForm, Field, IFormSchema } from 'hooks/useForm';
+import { color } from 'styles/tokens';
 
 const FALL = 'fall';
 const ADL = 'adl';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure, Heading, Flex, Box } from '@chakra-ui/core';
-import { color } from 'src/styles/tokens';
-import { useStopwatch } from 'src/hooks/useStopwatch';
-import StopWatchButton from 'src/components/Stopwatch/Button';
+import { color } from 'styles/tokens';
+import { useStopwatch } from 'hooks/useStopwatch';
+import StopWatchButton from 'components/Stopwatch/Button';
 
 interface IModal extends React.Props<{}> {
     title: string;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, SimpleGrid, Box, useDisclosure } from '@chakra-ui/core';
-import { useForm, Field, IFormSchema } from 'src/hooks/useForm';
-import { color } from 'src/styles/tokens';
+import { useForm, Field, IFormSchema } from 'hooks/useForm';
+import { color } from 'styles/tokens';
 import FP1 from './FallRiskAssessment1';
-import { addSenior } from 'src/db/api';
+import { addSenior } from 'db/api';
 
 const NAME = 'name';
 const NRIC = 'nric';

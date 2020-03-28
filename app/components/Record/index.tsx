@@ -1,7 +1,7 @@
 import { Box, Text, Tag, Flex, Button } from '@chakra-ui/core';
 import Router from 'next/router';
-import { color } from 'src/styles/tokens';
-import { ISenior } from 'src/db/interface';
+import { color } from 'styles/tokens';
+import { ISenior } from 'db/interface';
 
 interface IProps {
     senior: ISenior

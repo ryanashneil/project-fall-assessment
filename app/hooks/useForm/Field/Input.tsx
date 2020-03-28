@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IFormFunctions } from 'src/hooks/useForm/interfaces';
+import { IFormFunctions } from 'hooks/useForm/interfaces';
 import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/core';
 
 interface IFieldInputProps {

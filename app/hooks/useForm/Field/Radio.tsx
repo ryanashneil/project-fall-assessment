@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { IFormFunctions } from 'src/hooks/useForm/interfaces';
-import { FormControl, FormLabel, Checkbox, CheckboxGroup } from '@chakra-ui/core';
+import { IFormFunctions } from 'hooks/useForm/interfaces';
+import { FormControl, FormLabel, Radio, RadioGroup, FormHelperText } from '@chakra-ui/core';
 
 interface IFieldInputProps {
     id: string;
@@ -25,22 +25,26 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
         return <div></div>;
     }
 
-    if (field.type !== 'checkbox') {
-        throw Error('Incompatible field type; Type must be [checkbox]');
+    if (field.type !== 'radio') {
+        throw Error('Incompatible field type; Type must be [radio]');
     }
 
     const onBlurHandler = (): void => {
         form.validateValue(id);
     };
 
-    const onChangeHandler = (value: string[]): void => {
-        form.updateValue(id, value.filter(Boolean));
+    const onChangeHandler = (event: any): void => {
+        form.updateValue(id, event.target.value);
+        props.onChange && props.onChange(id, event.target.value);
     };
 
     return (
         <FormControl isInvalid={!!field.error} marginBottom='40px'>
             <FormLabel htmlFor={id} fontWeight='medium'>{field.name}</FormLabel>
-            <CheckboxGroup
+            {field.helpText && <FormHelperText marginBottom="24px">
+                {field.helpText}
+            </FormHelperText>}
+            <RadioGroup
                 id={id}
                 mt='4px'
                 value={field.value}
@@ -50,8 +54,8 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
                 isInline={props.inline}
                 onBlur={onBlurHandler}
             >
-                {field.items.map(item => <Checkbox key={item.value} value={item.value}>{item.label}</Checkbox>)}
-            </CheckboxGroup>
+                {field.items.map(item => <Radio key={item.value} value={item.value}>{item.label}</Radio>)}
+            </RadioGroup>
         </FormControl>
     );
 }
