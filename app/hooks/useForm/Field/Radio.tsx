@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IFormFunctions } from 'hooks/useForm/interfaces';
 import { FormControl, FormLabel, Radio, RadioGroup, FormHelperText } from '@chakra-ui/core';
+import { getFieldProps } from '../utils';
 
 interface IFieldInputProps {
     id: string;
@@ -9,7 +10,7 @@ interface IFieldInputProps {
     inline?: boolean;
     onFocus?: (key: string) => void;
     onBlur?: (key: string) => void;
-    onChange?: (key: string, value: any) => void;
+    onChange?: () => void;
 }
 
 export interface ISelectOption {
@@ -18,7 +19,7 @@ export interface ISelectOption {
 }
 
 const FieldInput = (props: IFieldInputProps): JSX.Element => {
-    const { id, form } = props;
+    const { id, form, onChange } = props;
     const field = form.getField(id);
 
     if (!field) {
@@ -29,14 +30,7 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
         throw Error('Incompatible field type; Type must be [radio]');
     }
 
-    const onBlurHandler = (): void => {
-        form.validateValue(id);
-    };
-
-    const onChangeHandler = (event: any): void => {
-        form.updateValue(id, event.target.value);
-        props.onChange && props.onChange(id, event.target.value);
-    };
+    const { change, value, blur } = getFieldProps(id, form, onChange);
 
     return (
         <FormControl isInvalid={!!field.error} marginBottom='40px'>
@@ -47,12 +41,12 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
             <RadioGroup
                 id={id}
                 mt='4px'
-                value={field.value}
+                value={value}
                 placeholder={field.placeholder}
                 aria-describedby={field.name}
-                onChange={onChangeHandler}
+                onChange={event => change(event.target.value)}
                 isInline={props.inline}
-                onBlur={onBlurHandler}
+                onBlur={blur}
             >
                 {field.items.map(item => <Radio key={item.value} value={item.value}>{item.label}</Radio>)}
             </RadioGroup>

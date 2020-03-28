@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IFormFunctions } from 'hooks/useForm/interfaces';
 import { FormControl, FormLabel, Select } from '@chakra-ui/core';
+import { getFieldProps } from '../utils';
 
 interface IFieldInputProps {
     id: string;
@@ -26,13 +27,7 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
         throw Error('Incompatible field type; Type must be [select]');
     }
 
-    const onBlurHandler = (): void => {
-        form.validateValue(id);
-    };
-
-    const onChangeHandler = (event: any): void => {
-        form.updateValue(id, event.target.value);
-    };
+    const { change, value, blur } = getFieldProps(id, form);
 
     return (
         <FormControl isInvalid={!!field.error} marginBottom='40px'>
@@ -41,9 +36,10 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
                 id={id}
                 mt='4px'
                 placeholder={field.placeholder}
+                value={value}
                 aria-describedby={field.name}
-                onChange={onChangeHandler}
-                onBlur={onBlurHandler}
+                onChange={event => change(event.target.value)}
+                onBlur={blur}
                 width={props.width}
             >
                 {field.items.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}

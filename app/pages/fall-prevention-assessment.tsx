@@ -199,10 +199,7 @@ export default () => {
     const calcBMI = () => {
         const weight = form.getValue(WEIGHT);
         const height = form.getValue(HEIGHT);
-
-        console.log('weight', weight);
-        console.log('height', height);
-
+        
         if (!weight || !height) {
             setBMI([0, '(Not Applicable)']);
         }

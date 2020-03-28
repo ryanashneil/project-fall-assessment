@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IFormFunctions } from 'hooks/useForm/interfaces';
 import { FormControl, FormLabel, Checkbox, CheckboxGroup } from '@chakra-ui/core';
+import { getFieldProps } from '../utils';
 
 interface IFieldInputProps {
     id: string;
@@ -9,7 +10,7 @@ interface IFieldInputProps {
     inline?: boolean;
     onFocus?: (key: string) => void;
     onBlur?: (key: string) => void;
-    onChange?: (key: string, value: any) => void;
+    onChange?: () => void;
 }
 
 export interface ISelectOption {
@@ -18,7 +19,7 @@ export interface ISelectOption {
 }
 
 const FieldInput = (props: IFieldInputProps): JSX.Element => {
-    const { id, form } = props;
+    const { id, form, onChange } = props;
     const field = form.getField(id);
 
     if (!field) {
@@ -29,13 +30,7 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
         throw Error('Incompatible field type; Type must be [checkbox]');
     }
 
-    const onBlurHandler = (): void => {
-        form.validateValue(id);
-    };
-
-    const onChangeHandler = (value: string[]): void => {
-        form.updateValue(id, value.filter(Boolean));
-    };
+    const { change, value, blur } = getFieldProps(id, form, onChange);
 
     return (
         <FormControl isInvalid={!!field.error} marginBottom='40px'>
@@ -43,12 +38,12 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
             <CheckboxGroup
                 id={id}
                 mt='4px'
-                value={field.value}
+                value={value}
                 placeholder={field.placeholder}
                 aria-describedby={field.name}
-                onChange={onChangeHandler}
+                onChange={(value: string[]) => change(value)}
                 isInline={props.inline}
-                onBlur={onBlurHandler}
+                onBlur={blur}
             >
                 {field.items.map(item => <Checkbox key={item.value} value={item.value}>{item.label}</Checkbox>)}
             </CheckboxGroup>

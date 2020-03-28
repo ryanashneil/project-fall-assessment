@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IFormFunctions } from 'hooks/useForm/interfaces';
 import { FormControl, FormLabel, Input, Textarea } from '@chakra-ui/core';
+import { getFieldProps } from '../utils';
 
 interface IFieldInputProps {
     id: string;
@@ -9,11 +10,11 @@ interface IFieldInputProps {
     width?: string;
     onFocus?: (key: string) => void;
     onBlur?: (key: string) => void;
-    onChange?: (key: string, value: any) => void;
+    onChange?: () => void;
 }
 
 const FieldInput = (props: IFieldInputProps): JSX.Element => {
-    const { id, form } = props;
+    const { id, form, onChange } = props;
     const field = form.getField(id);
 
     if (!field) {
@@ -22,17 +23,9 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
 
     const FieldElement = field.type === 'textarea' ? Textarea : Input;
 
-    const onBlurHandler = (event: any): void => {
-        form.validateValue(id);
-        props.onBlur && props.onBlur(id);
-    };
+    const { change, value, blur } = getFieldProps(id, form, onChange);
 
-    const onChangeHandler = (event: any): void => {
-        form.updateValue(id, event.target.value);
-        props.onChange && props.onChange(id, event.target.value);
-    };
-
-    const onFocusHandler = (): void => {
+    const focus = (): void => {
         props.onFocus && props.onFocus(id);
     };
 
@@ -45,10 +38,10 @@ const FieldInput = (props: IFieldInputProps): JSX.Element => {
                 placeholder={field.placeholder}
                 type={field.type === 'textarea' ? 'text' : field.type}
                 aria-describedby={field.name}
-                value={field.value}
-                onChange={onChangeHandler}
-                onBlur={onBlurHandler}
-                onFocus={onFocusHandler}
+                value={value}
+                onChange={event => change(event.target.value)}
+                onBlur={blur}
+                onFocus={focus}
                 width={props.width || '100%'}
             />
         </FormControl>
