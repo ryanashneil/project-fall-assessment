@@ -7,6 +7,7 @@ import { updateSeniorFP2, getSenior } from 'db/api';
 import { useState, useEffect } from 'react';
 import { ISenior } from 'db/interface';
 import Timer from "composite/Modal/Timer";
+import Loader from "components/Loader";
 
 const BP_LYING = 'bpLying';
 const BP_SITTING = 'bpSitting';
@@ -278,7 +279,7 @@ export default () => {
 
 
     if (!senior) {
-        return <div />;
+        return <div><Loader show={true} /></div>;
     }
 
     return (
